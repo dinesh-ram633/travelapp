@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:travel_app/UI/seat.dart';
 import 'package:travel_app/newseat.dart';
 
 class BusBookingDetailPage extends StatelessWidget {

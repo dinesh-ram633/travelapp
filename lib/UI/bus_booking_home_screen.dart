@@ -21,7 +21,6 @@ class _BusBookingHomeScreenState extends State<BusBookingHomeScreen> {
   TextEditingController _fromtex = TextEditingController();
   TextEditingController _totex = TextEditingController();
   int _counter =0;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -147,7 +146,7 @@ class _BusBookingHomeScreenState extends State<BusBookingHomeScreen> {
                           child: TextFormField(
                                      validator: (value) {
                                       if (value!.isEmpty) {
-                                      return 'Please enter your name';
+                                      return 'Please enter your pickup point';
                                      }
                                      return null;
                                      },

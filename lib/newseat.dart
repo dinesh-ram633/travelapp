@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/checkout1.dart';
 import 'package:travel_app/payment.dart';
 
 class Seat {
   int number;
   bool isAvailable;
+  
 
   Seat({required this.number, required this.isAvailable});
 }
@@ -38,7 +40,11 @@ Bus myBus = Bus(
     Seat(number: 21, isAvailable: true),
     Seat(number: 22, isAvailable: true),
     Seat(number: 23, isAvailable: true),
-    Seat(number: 24, isAvailable: true)
+    Seat(number: 24, isAvailable: true),
+    Seat(number: 25, isAvailable: false),
+    Seat(number: 26, isAvailable: true),
+    Seat(number: 27, isAvailable: true),
+    Seat(number: 28, isAvailable: false),
   ],
 );
 
@@ -64,6 +70,7 @@ class BookingPage extends StatefulWidget {
 
 class _BookingPageState extends State<BookingPage> {
   List<Seat> selectedSeats = [];
+  Ticket myTicket = Ticket(basePrice: 650.0, taxRate: 0.06);
 
   void bookSeat(Seat seat) {
     setState(() {
@@ -78,36 +85,51 @@ class _BookingPageState extends State<BookingPage> {
       selectedSeats.remove(seat);
     });
   }
-Ticket myTicket = Ticket(basePrice: 10.0, taxRate: 0.1);
 
   void freezeSeats() {
+     double totalPrice = myTicket.calculatePrice() * selectedSeats.length;
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => NewCheck1(selectedSeats: selectedSeats, totalPrice: totalPrice),
+    ),
+  );
+    // double totalPrice = myTicket.calculatePrice() * selectedSeats.length;
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       title: Text('Confirm Booking'),
+    //       content: Text('Are you sure you want to book ${selectedSeats.length} seats?'),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () {
+    //             Navigator.of(context).pop();
+    //           },
+    //           child: Text('Cancel'),
+    //         ),
+    //         ElevatedButton(
+    //           onPressed: () {
+    //             for (Seat seat in selectedSeats) {
+    //               seat.isAvailable = false;
+    //             }
+    //             selectedSeats.clear();
+    //             Navigator.push(context,MaterialPageRoute(builder: (context) =>NewcheckPage(selectedSeats: selectedSeats),));
+    //           },
+    //           child: Text('Confirm'),
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
+  }
+    void payForSeats() {
     double totalPrice = myTicket.calculatePrice() * selectedSeats.length;
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Confirm Booking'),
-          content: Text('Are you sure you want to book ${selectedSeats.length} seats?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                for (Seat seat in selectedSeats) {
-                  seat.isAvailable = false;
-                }
-                selectedSeats.clear();
-                Navigator.push(context,MaterialPageRoute(builder: (context) =>PaymentScreen(),));
-              },
-              child: Text('Confirm'),
-            ),
-          ],
-        );
-      },
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PaymentScreen(totalPrice: totalPrice),
+      ),
     );
   }
 
@@ -115,7 +137,10 @@ Ticket myTicket = Ticket(basePrice: 10.0, taxRate: 0.1);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bus Seat Booking'),
+      
+        title: Text('Bus Seat Booking',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+        centerTitle: true,
+        backgroundColor: Colors.red,
       ),
       body: Column(
         children: [
@@ -126,7 +151,7 @@ Ticket myTicket = Ticket(basePrice: 10.0, taxRate: 0.1);
                 crossAxisCount: 4,
                 childAspectRatio: 1,
                 crossAxisSpacing: 16,
-                mainAxisSpacing: 18,
+                mainAxisSpacing: 10,
               ),
               itemCount: widget.bus.seats.length,
               itemBuilder: (context, index) {
@@ -192,3 +217,4 @@ Ticket myTicket = Ticket(basePrice: 10.0, taxRate: 0.1);
        
         ]));
   }}
+  

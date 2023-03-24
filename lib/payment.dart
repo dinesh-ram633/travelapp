@@ -1,51 +1,11 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/container.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:stripe_payment/stripe_payment.dart';
-
-// class PaymentPage extends StatefulWidget {
-//   const PaymentPage({super.key});
-//   void initStripePayment() {
-//   StripePayment.setOptions(
-//     StripeOptions(
-//       publishableKey: "your-publishable-key",
-//       merchantId: "your-merchant-id",
-//       androidPayMode: 'test',
-//     ),
-//   );
-// }
-// Future<void> createPaymentMethod() async {
-//   CardFormPaymentRequest paymentRequest = CardFormPaymentRequest();
-//   paymentRequest.theme = ThemeData(
-//     primaryColor: Colors.deepPurpleAccent,
-//   );
-//   PaymentMethod paymentMethod = await StripePayment.paymentRequestWithCardForm(
-//     paymentRequest,
-//   );
-//   // Send the paymentMethod.id to your backend API to create a charge
-  
-// }
-
-
-
-//   @override
-//   State<PaymentPage> createState() => _PaymentPageState();
-// }
-
-// class _PaymentPageState extends State<PaymentPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class PaymentScreen extends StatefulWidget {
-  // final double totalPrice;
+  final double totalPrice;
     // PaymentScreen({Key? key, required this.totalPrice}) : super(key: key);
-  const PaymentScreen({super.key});
+  const PaymentScreen({super.key, required this.totalPrice});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -55,6 +15,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
 late Razorpay razorpay;
 TextEditingController textEditingController = TextEditingController();
+
+  
 
   get totalPrice => null;
 
@@ -78,9 +40,9 @@ void openCheckout(){
   var options = {
    'key': 'rzp_test_F9Jzc1xWmHg2z9',
    'amount': num.parse(textEditingController.text)*100,
-   'name': 'Travel App',
+   'name': 'Tripy',
    'description': 'payment',
-   'prefill': {'contact': '8667457165', 'email': 'dram@gmail.com.com'},
+   'prefill': {'contact': '8667457165', 'email': 'dram@gmail.com'},
    'external': {
    'wallets': ['paytm']
                     }
@@ -112,20 +74,23 @@ void handlerExternalWallet(){
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const Text("Razor Pay"),
+        title:const Text("Payment",style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+        centerTitle: true,
+        backgroundColor: Colors.red,
       ),
-      body: Padding(padding: const EdgeInsets.all(30.0),
+      body: Padding(padding: const EdgeInsets.only(top: 40),
       child: Column(
         children: [
-        //   Text(
-        //   'Total Price: \$${totalPrice.toStringAsFixed(2)}',
-        //   style: TextStyle(fontSize: 24),
-        // ),
-          
-          TextField(
+          Text(
+          'Total Price: \Rs.${widget.totalPrice.toStringAsFixed(2)}',
+          style: TextStyle(fontSize: 24,
+          fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 20,),
+         TextField(
             controller: textEditingController,
             decoration:const InputDecoration(
-              hintText: "Amount to pay"
+              hintText: "Enter your Amount",
             ),
           ),
         const  SizedBox(height: 12,),

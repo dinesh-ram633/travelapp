@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:travel_app/UI/profilewidget.dart';
 import 'package:travel_app/login.dart';
 import 'package:travel_app/profilescreen.dart';
@@ -13,6 +14,42 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+   final ImagePicker _picker = ImagePicker();
+   XFile? _imageFile;
+   dynamic _pickedImageError;
+  void _pickImageFromcamera() async{
+    try{
+      final pickedimage = await _picker.pickImage(
+        source:ImageSource.camera,
+        maxHeight:300,
+        maxWidth:300,
+        imageQuality:95
+      );
+     
+      setState(() {
+        _imageFile = pickedimage;
+      });
+    } catch (e) {
+      _pickedImageError = e;
+    }
+    (_pickedImageError);
+  } 
+  void _pickImageGallery() async {
+    try {
+      final pickedImage = await _picker.pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 300,
+        maxWidth: 300,
+        imageQuality: 95
+      );
+      setState(() {
+        _imageFile = pickedImage;
+      });
+    } catch (e) {
+      _pickedImageError = e;
+    }
+    (_pickedImageError);
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,10 +62,23 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+          //     IconButton(onPressed: (){
+          //   _pickImageFromcamera();
+          // }, icon: Icon(Icons.camera)),
+          //  IconButton(onPressed: (){
+          //   _pickImageGallery();
+          // }, icon: Icon(Icons.browse_gallery)),
+          // ElevatedButton(onPressed: (){
+          //   if (_imageFile == null){
+          //     print("pick image");
+          //   }else {
+          //     print("image picked");
+          //   }
+          // }, child: Text("submit")),
               Container(
                 width: 150,
                 child: const CircleAvatar(
-                  radius: 60,
+                  radius: 32,
                   backgroundColor: Colors.transparent,
                   backgroundImage: ExactAssetImage("assets/123.webp"),
                 ),
@@ -105,3 +155,16 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+// IconButton(onPressed: (){
+//             _pickImageFromcamera();
+//           }, icon: Icon(Icons.camera)),
+//            IconButton(onPressed: (){
+//             _pickImageGallery();
+//           }, icon: Icon(Icons.browse_gallery)),
+//           ElevatedButton(onPressed: (){
+//             if (_imageFile == null){
+//               print("pick image");
+//             }else {
+//               print("image picked");
+//             }
+//           }, child: Text("submit")),
