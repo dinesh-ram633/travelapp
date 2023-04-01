@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:travel_app/UI/bus_booking_detail_page.dart';
 import 'package:travel_app/UI/bus_booking_home_screen.dart';
 import 'package:travel_app/UI/bus_booking_main_page.dart';
-import 'package:travel_app/UI/bus_seat_page.dart';
 import 'package:travel_app/login.dart';
 import 'package:travel_app/map.dart';
 import 'package:travel_app/newseat.dart';
@@ -23,12 +22,8 @@ class BusTicketBookingApp extends StatelessWidget {
     '/login': (context) => LoginPage(),
     '/home':  (context) => BusBookingMainPage(),
     '/newseat' :(context) => BookingPage(bus: myBus),
-    '/seat' :(context) => BusBookingPage(),
     '/map' :(context) => MyLocation(),
     '/splash' :(context) => SplashScreen(),
-
-    // '/detail':(context) => BusBookingDetailPage(),
-    // '/restaurantdetail':(context) => RestaurantDetail(),
   },
     );
   }

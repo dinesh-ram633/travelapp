@@ -20,10 +20,9 @@ class _NewCheck1State extends State<NewCheck1> {
 
 @override 
 Widget build(BuildContext context) {
-    // Implement your UI for the checkout screen
     return Scaffold(
       appBar: AppBar(
-        title: Text('Checkout',style: TextStyle(color: Colors.black),),
+        title: Text('Checkout',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
         centerTitle: true,
         backgroundColor: Colors.red,
       ),

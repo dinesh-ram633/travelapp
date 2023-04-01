@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/checkout1.dart';
+import 'package:travel_app/checkout.dart';
 import 'package:travel_app/payment.dart';
 
 class Seat {
